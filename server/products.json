@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "MLO",
+    "description": "Criação de interior personalizado para o seu servidor (casas, empresas, delegacias, hospitais)",
+    "price": 100
+  },
+  {
+    "id": 2,
+    "name": "Cenário Externo",
+    "description": "Construção de cenários externos personalizados (ilhas, favelas, bairros, pontos de interesse)",
+    "price": 200
+  },
+  {
+    "id": 3,
+    "name": "Edição de Cenário",
+    "description": "Modificação e otimização de cenários já existentes no mapa",
+    "price": 80
+  },
+  {
+    "id": 4,
+    "name": "Livery de Carro",
+    "description": "Pintura personalizada para veículos (viaturas, táxis, empresas, drift)",
+    "price": 50
+  },
+  {
+    "id": 5,
+    "name": "Edição de Carro",
+    "description": "Modificação de handling, metas, sons e tuning de veículos",
+    "price": 100
+  },
+  {
+    "id": 6,
+    "name": "Novo Emprego",
+    "description": "Sistema de emprego completo com missões, veículos, roupas e pagamento",
+    "price": 250
+  },
+  {
+    "id": 7,
+    "name": "Pintura de Roupas",
+    "description": "Criação de roupas personalizadas para o servidor (uniformes, facções, marcas)",
+    "price": 60
+  }
+]

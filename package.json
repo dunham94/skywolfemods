@@ -1,0 +1,15 @@
+{
+  "name": "calculadora-orcamento",
+  "version": "1.0.0",
+  "description": "Calculadora de orçamento com React, Node.js, PIX e WhatsApp",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm start",
+    "client": "cd client && npm run dev",
+    "preview": "concurrently \"npm run server\" \"cd client && npm run build && npm run preview -- --host 127.0.0.1\"",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
