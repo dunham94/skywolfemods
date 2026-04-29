@@ -14,7 +14,10 @@ function WhatsAppButton({ products, selectedIds, phone }) {
     }).format(price)
   }
 
-const generateMessage = () => {
+  const generateMessage = () => {
+    const total = selectedProducts.reduce((sum, p) => sum + p.price, 0)
+    const entryValue = total * 0.2
+
     const productList = selectedProducts
       .map(p => `*${p.name}* - ${formatPrice(p.price)}`)
       .join('\n')
@@ -27,11 +30,14 @@ Gostei bastante dos produtos e gostaria de solicitar um orçamento, ou entender 
 
 ${productList}
 
+*Total do Orçamento:* ${formatPrice(total)}
+*Valor de Entrada (20%):* ${formatPrice(entryValue)}
+
 Aguardo seu retorno para alinharmos os próximos passos.
-_${name}_`
+Atenciosamente, ${name}`
   }
 
-const getWhatsAppUrl = () => {
+  const getWhatsAppUrl = () => {
     if (!phone || !hasSelection) return '#'
     const cleanPhone = phone.replace(/\D/g, '')
     const message = generateMessage()

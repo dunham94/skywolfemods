@@ -265,9 +265,9 @@ function Admin() {
 
     for (let i = 0; i < totalFiles; i++) {
       const file = files[i]
-      const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp']
+      const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp', 'video/mp4']
       if (!validTypes.includes(file.type)) {
-        alert(`Arquivo ${file.name}: Apenas imagens (PNG, JPG, GIF, WebP) são permitidas`)
+        alert(`Arquivo ${file.name}: Apenas imagens (PNG, JPG, GIF, WebP) ou vídeos MP4 são permitidos`)
         continue
       }
 
@@ -750,7 +750,7 @@ function Admin() {
 
         <div className="p-6 space-y-6 bg-[#0a0a0a]/50">
           <div className="gta-border rounded-lg p-6 bg-[#1a1a1a]/50 border-[#FF6B9D]/30">
-            <h3 className="text-lg font-semibold text-[#FFD700] mb-4">Upload de Imagens</h3>
+            <h3 className="text-lg font-semibold text-[#FFD700] mb-4">Upload de Arquivos</h3>
             
             <div className="flex gap-4 mb-4">
               <input
@@ -758,7 +758,7 @@ function Admin() {
                 ref={imageInputRef}
                 onChange={handleImageUpload}
                 multiple
-                accept="image/png,image/jpeg,image/jpg,image/gif,image/webp"
+                accept="image/png,image/jpeg,image/jpg,image/gif,image/webp,video/mp4"
                 className="hidden"
               />
               <button
@@ -766,7 +766,7 @@ function Admin() {
                 className="flex items-center gap-2 px-6 py-3 bg-[#FF6B9D]/20 text-[#FF6B9D] rounded-lg hover:bg-[#FF6B9D]/30 transition-colors border border-[#FF6B9D]/30 font-semibold"
               >
                 <Upload className="w-5 h-5" />
-                Selecionar Imagens
+                Selecionar Arquivos
               </button>
 
               {uploadingImages > 0 && (
