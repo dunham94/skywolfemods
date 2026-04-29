@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://sncyrsvytbzeixnrbytb.supabase.co'
-const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_kI4M15b1ymAWAXXa0g89Yg_eUn8xY8S'
+const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNuY3lyc3Z5dGJ6ZWl4bnJieXRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MzQzMzIsImV4cCI6MjA5MjExMDMzMn0.lKrP4qUXANsg8MKyvRAr3RauLMXaS3hv35gZvUXoY8o'
 
 // Detecta se a chave Supabase é válida (JWT real começa com 'eyJ')
 const isValidSupabaseKey = supabaseKey && supabaseKey.startsWith('eyJ') && supabaseKey.length > 50
