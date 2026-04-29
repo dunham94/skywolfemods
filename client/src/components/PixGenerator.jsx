@@ -5,7 +5,7 @@ import { createComprovante } from '../lib/supabase'
 function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
   const [copied, setCopied] = useState(false)
   const fileInputRef = useRef(null)
-  
+
   const [uploadProgress, setUploadProgress] = useState(0)
   const [uploadTime, setUploadTime] = useState('00:00:00')
   const [selectedFile, setSelectedFile] = useState(null)
@@ -58,7 +58,7 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
 
     setSelectedFile(file.name)
     setUploadProgress(1)
-    
+
     // Create preview image
     if (file.type.startsWith('image/')) {
       const reader = new FileReader()
@@ -67,7 +67,7 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
       }
       reader.readAsDataURL(file)
     }
-    
+
     // Start progress simulation
     const interval = setInterval(() => {
       setUploadProgress(prev => {
@@ -132,9 +132,9 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
         <div className="flex justify-center mb-4">
           {hasQrCode ? (
             <div className="bg-white p-4 rounded-lg border-2 border-[#FFD700]/30">
-              <img 
-                src={pixConfig.qrCodeUrl} 
-                alt="QR Code PIX" 
+              <img
+                src={pixConfig.qrCodeUrl}
+                alt="QR Code PIX"
                 className="w-48 h-48 object-contain"
               />
             </div>
@@ -187,18 +187,18 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
               Importe Seu Comprovante
             </h3>
           </div>
-          
+
           {/* Preview Image */}
           {previewImage && (
             <div className="mb-3 flex justify-center">
-              <img 
-                src={previewImage} 
-                alt="Preview" 
+              <img
+                src={previewImage}
+                alt="Preview"
                 className="max-h-32 rounded-lg border border-[#00C851]/30"
               />
             </div>
           )}
-          
+
           <div className="space-y-3">
             <div className="flex items-end gap-3">
               <div className="flex-1">
@@ -227,7 +227,7 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
                   </div>
                   <div className="w-16">
                     <div className="h-2 bg-[#0a0a0a] rounded-lg border border-[#FFD700]/30 overflow-hidden">
-                      <div 
+                      <div
                         className="h-full bg-gradient-to-r from-[#FFD700] to-[#FF8C00] transition-all duration-300"
                         style={{ width: `${uploadProgress}%` }}
                       />
@@ -237,7 +237,7 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
                 </>
               )}
             </div>
-            
+
             {/* Nome do Cliente */}
             <div>
               <label className="block text-xs text-gray-400 mb-1">Nome do Cliente</label>
@@ -263,7 +263,7 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
             </div>
 
             {/* Botão Pagar */}
-<button
+            <button
               onClick={async () => {
                 if (!selectedFile) {
                   alert('Por favor, importe o comprovante primeiro!')
@@ -286,9 +286,9 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
                   alert('Chave PIX não configurada. Entre em contato com o administrador.')
                   return
                 }
-                
+
                 setEnviando(true)
-                
+
                 // Save comprovante to server
                 const inputEl = document.getElementById('comprovante-input-px')
                 if (inputEl && inputEl.files && inputEl.files[0]) {
@@ -300,7 +300,7 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
                       const now = new Date()
                       const dataHora = now.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
                       const pedido = generateOrderCode()
-                      
+
                       const produtosSelecionados = products.filter(p => selectedIds.includes(p.id)).map(p => p.name)
                       console.log('Produtos selecionados:', produtosSelecionados)
 
@@ -353,11 +353,22 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
               <Check className="w-4 h-4" />
               {enviando ? 'Enviando...' : 'Pagar'}
             </button>
-            
-            <div className="mt-3 p-3 bg-[#00C851]/10 border border-[#00C851]/30 rounded-lg">
-              <p className="text-xs text-[#00C851] text-center">
-                🔔 Observação Importante: Caso você tente realizar seu mod e não consiga, garantimos a devolução integral do valor pago.
-                Somos uma empresa comprometida com a transparência e a confiança dos nossos clientes. Nosso objetivo é que você tenha uma experiência positiva e que fale bem de nós no boca a boca!
+
+            <div className="mt-3 p-3 bg-[#00C851]/10 border border-[#00C851]/30 rounded-lg space-y-2">
+              <p className="text-sm text-[#00C851] font-bold">
+                🛡️ Garantia de Viabilidade Skywolfe Mods
+              </p>
+              <p className="text-sm text-[#00C851]">
+                Nosso processo é simples, transparente e seguro para o seu bolso:
+              </p>
+              <p className="text-sm text-[#00C851]">
+                <strong>🚀 Início do Projeto:</strong> Você realiza um investimento inicial de apenas 20% do valor total. Esse valor cobre toda a nossa fase de diagnóstico técnico e o início da produção.
+              </p>
+              <p className="text-sm text-[#00C851]">
+                <strong>❌ Se não for possível realizar o serviço:</strong> Caso a gente identifique qualquer limitação técnica, devolvemos os 20% integralmente para você. O risco é todo nosso!
+              </p>
+              <p className="text-sm text-[#00C851]">
+                <strong>✅ Se o projeto for um sucesso:</strong> Após a conclusão e a sua validação, você efetua o pagamento do saldo restante para a entrega final do serviço.
               </p>
             </div>
           </div>

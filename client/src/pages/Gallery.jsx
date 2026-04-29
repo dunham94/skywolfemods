@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Image } from 'lucide-react'
+import { Image, X } from 'lucide-react'
 import { getGalleryImages } from '../lib/supabase'
 
 export default function Gallery() {
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(true)
+  const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
     loadImages()
@@ -52,7 +53,11 @@ export default function Gallery() {
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {images.map((img) => (
-                <div key={img.id} className="aspect-square rounded-lg overflow-hidden border border-[#FFD700]/20 hover:border-[#FFD700]/50 transition-colors">
+                <div 
+                  key={img.id} 
+                  className="aspect-square rounded-lg overflow-hidden border border-[#FFD700]/20 hover:border-[#FFD700]/50 transition-colors cursor-pointer transform hover:scale-105 transition-transform"
+                  onClick={() => setSelectedImage(img)}
+                >
                   <img
                     src={img.data}
                     alt={img.name}
@@ -64,6 +69,42 @@ export default function Gallery() {
           )}
         </div>
       </div>
+
+      {/* Modal for enlarged image */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-6xl max-h-full">
+            {/* Close button */}
+            <button
+              className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors z-10"
+              onClick={(e) => {
+                e.stopPropagation()
+                setSelectedImage(null)
+              }}
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            {/* Enlarged image */}
+            <img
+              src={selectedImage.data}
+              alt={selectedImage.name}
+              className="w-[960px] h-[760px] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+            
+            {/* Image name/description */}
+            <div className="absolute bottom-4 left-4 right-4 text-center">
+              <p className="text-white text-lg font-medium bg-black/50 inline-block px-4 py-2 rounded-lg">
+                {selectedImage.name}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
