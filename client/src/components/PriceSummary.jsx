@@ -37,13 +37,22 @@ function PriceSummary({ products, selectedIds }) {
               ))}
             </div>
 
-            <div className="border-t-2 border-[#FFD700]/30 pt-4">
+            <div className="border-t-2 border-[#FFD700]/30 pt-4 space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold text-white">Total do Orçamento:</span>
                 <div className="flex items-center gap-2">
                   <DollarSign className="w-5 h-5 text-[#FFD700]" />
                   <span className="text-2xl font-bold text-[#FFD700] gta-font">
                     {formatPrice(total)}
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-lg font-semibold text-white">20% de entrada:</span>
+                <div className="flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-[#FFD700]" />
+                  <span className="text-2xl font-bold text-[#FFD700] gta-font">
+                    {formatPrice(total * 0.2)}
                   </span>
                 </div>
               </div>
