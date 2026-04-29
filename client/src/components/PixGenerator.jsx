@@ -362,19 +362,25 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
 
             <div className="mt-3 p-3 bg-[#00C851]/10 border border-[#00C851]/30 rounded-lg space-y-2">
               <p className="text-sm text-[#00C851] font-bold">
-                🛡️ Garantia de Viabilidade Skywolfe Mods
+                🛡️ Garantia de Viabilidade — Skywolfe Mods
               </p>
               <p className="text-sm text-[#00C851]">
-                Nosso processo é simples, transparente e seguro para o seu bolso:
+                Nosso processo foi desenvolvido para oferecer transparência, segurança e previsibilidade em todas as etapas do projeto:
               </p>
               <p className="text-sm text-[#00C851]">
-                <strong>🚀 Início do Projeto:</strong> Você realiza um investimento inicial de apenas 20% do valor total. Esse valor cobre toda a nossa fase de diagnóstico técnico e o início da produção.
+                <strong>🚀 Início do Projeto:</strong> Para dar início, é realizado um investimento inicial de 20% do valor total, destinado à análise técnica detalhada e às etapas iniciais de desenvolvimento.
               </p>
               <p className="text-sm text-[#00C851]">
-                <strong>❌ Se não for possível realizar o serviço:</strong> Caso a gente identifique qualquer limitação técnica, devolvemos os 20% integralmente para você. O risco é todo nosso!
+                <strong>🔍 Análise de Viabilidade:</strong> Durante essa fase, avaliamos cuidadosamente as condições técnicas para execução do serviço.
               </p>
               <p className="text-sm text-[#00C851]">
-                <strong>✅ Se o projeto for um sucesso:</strong> Após a conclusão e a sua validação, você efetua o pagamento do saldo restante para a entrega final do serviço.
+                <strong>❌ Caso o serviço não seja viável:</strong> Se identificarmos qualquer limitação técnica que impeça a execução com qualidade adequada, o valor pago inicialmente (20%) será integralmente reembolsado, no prazo de até 2 dias úteis, pelo mesmo meio de pagamento.
+              </p>
+              <p className="text-sm text-[#00C851]">
+                <strong>✅ Conclusão do Projeto:</strong> Sendo o projeto viável, avançamos para a finalização do serviço. Antes da entrega final, será apresentada uma validação (ex: testes, demonstração ou checklist acordado), garantindo que tudo esteja conforme o combinado.
+              </p>
+              <p className="text-sm text-[#00C851]">
+                <strong>💳 Pagamento Final:</strong> Após a validação, o cliente realiza o pagamento do saldo restante (80%) para a entrega completa do serviço.
               </p>
             </div>
           </div>
