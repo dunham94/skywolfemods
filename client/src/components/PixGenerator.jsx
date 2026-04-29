@@ -146,9 +146,15 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
         </div>
 
         {total > 0 && (
-          <div className="text-center mb-4">
-            <p className="text-gray-400 mb-2">Valor a pagar:</p>
-            <p className="text-3xl font-bold text-[#00C851] gta-font">{formatPrice(total)}</p>
+          <div className="text-center mb-4 space-y-4">
+            <div>
+              <p className="text-gray-400 mb-2">Total do Orçamento:</p>
+              <p className="text-3xl font-bold text-[#00C851] gta-font">{formatPrice(total)}</p>
+            </div>
+            <div>
+              <p className="text-gray-400 mb-2">20% de entrada:</p>
+              <p className="text-3xl font-bold text-[#00C851] gta-font">{formatPrice(total * 0.2)}</p>
+            </div>
           </div>
         )}
 
