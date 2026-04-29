@@ -374,7 +374,7 @@ function PixGenerator({ pixConfig, total, products = [], selectedIds = [] }) {
                 <strong>🔍 Análise de Viabilidade:</strong> Durante essa fase, avaliamos cuidadosamente as condições técnicas para execução do serviço.
               </p>
               <p className="text-sm text-[#00C851]">
-                <strong>❌ Caso o serviço não seja viável:</strong> Se identificarmos qualquer limitação técnica que impeça a execução com qualidade adequada, o valor pago inicialmente (20%) será integralmente reembolsado, no prazo de até 2 dias úteis, pelo mesmo meio de pagamento.
+                <strong>❌ Caso o serviço não seja viável:</strong> Se identificarmos qualquer limitação técnica que impeça a execução com qualidade adequada, o valor pago inicialmente (20%) será integralmente reembolsado, no prazo de <span className="font-bold underline">até 2 dias úteis</span>, pelo mesmo meio de pagamento.
               </p>
               <p className="text-sm text-[#00C851]">
                 <strong>✅ Conclusão do Projeto:</strong> Sendo o projeto viável, avançamos para a finalização do serviço. Antes da entrega final, será apresentada uma validação (ex: testes, demonstração ou checklist acordado), garantindo que tudo esteja conforme o combinado.
