@@ -42,6 +42,8 @@ function Admin() {
   const [editingImage, setEditingImage] = useState(null)
   const [viewingImage, setViewingImage] = useState(null)
   const [uploadNotification, setUploadNotification] = useState('')
+  const [selectedGalleryCategory, setSelectedGalleryCategory] = useState('GTA')
+  
   const imageInputRef = useRef(null)
 
   useEffect(() => { fetchData() }, [])
@@ -288,7 +290,8 @@ function Admin() {
 
         const newImage = await addGalleryImage({
           name: file.name,
-          data: imageData
+          data: imageData,
+          category: selectedGalleryCategory
         })
 
         // Substitui o temp pelo real do Supabase
@@ -317,10 +320,10 @@ function Admin() {
     if (imageInputRef.current) imageInputRef.current.value = ''
   }
 
-  const handleUpdateImage = async (id, newName) => {
+  const handleUpdateImage = async (id, updates) => {
     try {
-      const updatedImage = await updateGalleryImage(id, { name: newName })
-      setImages(images.map(img => img.id === id ? { ...img, name: updatedImage.name } : img))
+      const updatedImage = await updateGalleryImage(id, updates)
+      setImages(images.map(img => img.id === id ? { ...img, ...updatedImage } : img))
       setEditingImage(null)
     } catch (error) {
       console.error('Erro ao atualizar imagem:', error)
@@ -752,6 +755,20 @@ function Admin() {
           <div className="gta-border rounded-lg p-6 bg-[#1a1a1a]/50 border-[#FF6B9D]/30">
             <h3 className="text-lg font-semibold text-[#FFD700] mb-4">Upload de Arquivos</h3>
             
+            <div className="flex flex-col md:flex-row gap-4 mb-4">
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-400 mb-1">Categoria do Upload</label>
+                <select
+                  value={selectedGalleryCategory}
+                  onChange={(e) => setSelectedGalleryCategory(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg border border-[#FF6B9D]/30 bg-[#0a0a0a] text-white focus:ring-2 focus:ring-[#FF6B9D] outline-none"
+                >
+                  <option value="GTA">GTA</option>
+                  <option value="Flight Simulator">Flight Simulator</option>
+                </select>
+              </div>
+            </div>
+            
             <div className="flex gap-4 mb-4">
               <input
                 type="file"
@@ -798,6 +815,7 @@ function Admin() {
               <thead className="bg-gradient-to-r from-[#1a1a1a] to-[#2a2a2a]">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-[#FFD700] uppercase tracking-wider">Nome da Imagem</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-[#FFD700] uppercase tracking-wider">Status (Categoria)</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-[#FFD700] uppercase tracking-wider">Visualizar</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-[#FFD700] uppercase tracking-wider w-32">Ações</th>
                 </tr>
@@ -826,6 +844,22 @@ function Admin() {
                         )}
                       </td>
                       <td className="px-6 py-4 text-center">
+                        {editingImage?.id === img.id ? (
+                          <select
+                            value={editingImage.category}
+                            onChange={(e) => setEditingImage({...editingImage, category: e.target.value})}
+                            className="px-2 py-1 rounded border border-[#FF6B9D]/30 bg-[#1a1a1a] text-white focus:ring-2 focus:ring-[#FF6B9D] outline-none"
+                          >
+                            <option value="GTA">GTA</option>
+                            <option value="Flight Simulator">Flight Simulator</option>
+                          </select>
+                        ) : (
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${img.category === 'GTA' ? 'bg-blue-500/20 text-blue-400' : 'bg-purple-500/20 text-purple-400'}`}>
+                            {img.category}
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 text-center">
                         <button
                           onClick={() => setViewingImage(img)}
                           className="p-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition-colors border border-blue-500/30 mx-auto"
@@ -838,7 +872,7 @@ function Admin() {
                         <div className="flex justify-center gap-2">
                           {editingImage?.id === img.id ? (
                             <button
-                              onClick={() => handleUpdateImage(img.id, editingImage.name)}
+                              onClick={() => handleUpdateImage(img.id, { name: editingImage.name, category: editingImage.category })}
                               className="p-2 bg-[#00C851]/20 text-[#00C851] rounded-lg hover:bg-[#00C851]/30 transition-colors border border-[#00C851]/30"
                             >
                               <Save className="w-4 h-4" />

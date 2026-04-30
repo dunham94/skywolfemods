@@ -7,6 +7,8 @@ export default function Gallery() {
   const [loading, setLoading] = useState(true)
   const [selectedImage, setSelectedImage] = useState(null)
 
+  const [activeTab, setActiveTab] = useState('GTA')
+
   useEffect(() => {
     loadImages()
   }, [])
@@ -22,6 +24,9 @@ export default function Gallery() {
       setLoading(false)
     }
   }
+
+  const filteredImages = images.filter(img => img.category === activeTab)
+
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-3 mb-6">
@@ -32,10 +37,25 @@ export default function Gallery() {
       </div>
 
       <div className="gta-border rounded-xl overflow-hidden gta-glow">
-        <div className="p-6 border-b border-[#FFD700]/20 bg-gradient-to-r from-[#1a1a1a] to-[#2a2a2a]">
+        <div className="p-6 border-b border-[#FFD700]/20 bg-gradient-to-r from-[#1a1a1a] to-[#2a2a2a] flex flex-col md:flex-row md:items-center justify-between gap-4">
           <h2 className="gta-font text-2xl font-bold text-[#FFD700] uppercase tracking-wider">
             Projetos
           </h2>
+          
+          <div className="flex bg-[#0a0a0a] p-1 rounded-lg border border-[#FFD700]/20">
+            <button
+              onClick={() => setActiveTab('GTA')}
+              className={`px-4 py-2 rounded-md font-bold transition-all ${activeTab === 'GTA' ? 'bg-[#FFD700] text-[#0a0a0a]' : 'text-[#FFD700] hover:bg-[#FFD700]/10'}`}
+            >
+              GTA
+            </button>
+            <button
+              onClick={() => setActiveTab('Flight Simulator')}
+              className={`px-4 py-2 rounded-md font-bold transition-all ${activeTab === 'Flight Simulator' ? 'bg-[#FFD700] text-[#0a0a0a]' : 'text-[#FFD700] hover:bg-[#FFD700]/10'}`}
+            >
+              FLIGHT SIMULATOR
+            </button>
+          </div>
         </div>
 
         <div className="p-8 bg-[#0a0a0a]/50 min-h-[400px]">
@@ -43,16 +63,16 @@ export default function Gallery() {
             <div className="flex justify-center items-center py-20">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#FFD700]"></div>
             </div>
-          ) : images.length === 0 ? (
-            <div className="text-center">
+          ) : filteredImages.length === 0 ? (
+            <div className="text-center py-20">
               <Image className="w-16 h-16 text-[#FFD700]/30 mx-auto mb-4" />
               <p className="text-gray-500 text-lg">
-                Galeria vazia. Adicione imagens no painel Admin.
+                Nenhum projeto encontrado nesta categoria.
               </p>
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {images.map((img) => (
+              {filteredImages.map((img) => (
                 <div 
                   key={img.id} 
                   className="aspect-square rounded-lg overflow-hidden border border-[#FFD700]/20 hover:border-[#FFD700]/50 transition-colors cursor-pointer transform hover:scale-105 transition-transform"

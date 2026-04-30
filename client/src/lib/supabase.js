@@ -98,7 +98,8 @@ const mapComprovante = (row) => ({
 const mapGalleryImage = (row) => ({
   id: row.id,
   name: row.name,
-  data: row.image_data || row.data
+  data: row.image_data || row.data,
+  category: row.category || 'GTA'
 })
 
 // ==========================================
@@ -410,7 +411,7 @@ export async function getGalleryImages() {
   try {
     const { data, error } = await supabase
       .from('gallery')
-      .select('id, name, image_data')
+      .select('id, name, image_data, category')
       .order('created_at', { ascending: false })
 
     if (error) throw error
@@ -427,7 +428,8 @@ export async function addGalleryImage(image) {
     const novo = {
       id: Date.now(),
       name: image.name,
-      image_data: image.data
+      image_data: image.data,
+      category: image.category || 'GTA'
     }
     images.unshift(novo)
     setToLS(LS_KEYS.gallery, images)
@@ -439,9 +441,10 @@ export async function addGalleryImage(image) {
       .from('gallery')
       .insert({
         name: image.name,
-        image_data: image.data
+        image_data: image.data,
+        category: image.category || 'GTA'
       })
-      .select('id, name, image_data')
+      .select('id, name, image_data, category')
       .single()
 
     if (error) throw error
@@ -457,20 +460,23 @@ export async function updateGalleryImage(id, updates) {
     const images = getFromLS(LS_KEYS.gallery, [])
     const index = images.findIndex(img => img.id === id)
     if (index === -1) throw new Error('Imagem não encontrada')
-    images[index].name = updates.name
+    if ('name' in updates) images[index].name = updates.name
+    if ('category' in updates) images[index].category = updates.category
     setToLS(LS_KEYS.gallery, images)
     return mapGalleryImage(images[index])
   }
 
   try {
+    const updatePayload = {}
+    if ('name' in updates) updatePayload.name = updates.name
+    if ('category' in updates) updatePayload.category = updates.category
+    updatePayload.updated_at = new Date().toISOString()
+
     const { data, error } = await supabase
       .from('gallery')
-      .update({
-        name: updates.name,
-        updated_at: new Date().toISOString()
-      })
+      .update(updatePayload)
       .eq('id', id)
-      .select('id, name, image_data')
+      .select('id, name, image_data, category')
       .single()
 
     if (error) throw error
