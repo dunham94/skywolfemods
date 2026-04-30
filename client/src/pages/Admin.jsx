@@ -844,20 +844,14 @@ function Admin() {
                         )}
                       </td>
                       <td className="px-6 py-4 text-center">
-                        {editingImage?.id === img.id ? (
-                          <select
-                            value={editingImage.category}
-                            onChange={(e) => setEditingImage({...editingImage, category: e.target.value})}
-                            className="px-2 py-1 rounded border border-[#FF6B9D]/30 bg-[#1a1a1a] text-white focus:ring-2 focus:ring-[#FF6B9D] outline-none"
-                          >
-                            <option value="GTA">GTA</option>
-                            <option value="Flight Simulator">Flight Simulator</option>
-                          </select>
-                        ) : (
-                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${img.category === 'GTA' ? 'bg-blue-500/20 text-blue-400' : 'bg-purple-500/20 text-purple-400'}`}>
-                            {img.category}
-                          </span>
-                        )}
+                        <select
+                          value={img.category}
+                          onChange={(e) => handleUpdateImage(img.id, { category: e.target.value })}
+                          className="px-3 py-1 rounded-lg border border-[#FF6B9D]/30 bg-[#1a1a1a] text-white text-xs font-bold focus:ring-2 focus:ring-[#FF6B9D] outline-none cursor-pointer hover:border-[#FF6B9D]/60 transition-colors"
+                        >
+                          <option value="GTA">GTA</option>
+                          <option value="Flight Simulator">Flight Simulator</option>
+                        </select>
                       </td>
                       <td className="px-6 py-4 text-center">
                         <button
