@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { User, Lock, LogIn } from 'lucide-react'
+import { supabase } from '../lib/supabase'
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('')
@@ -12,11 +13,29 @@ function Login({ onLogin }) {
     setError('')
     setLoading(true)
 
-    if (username === 'dunhamleo.trab@gmail.com' && password === 'Leotrab@94') {
-      onLogin()
-    } else {
-      setError('Usuário ou senha incorretos')
+    try {
+      const { data, error: sbError } = await supabase
+        .from('admin_users')
+        .select('*')
+        .single()
+
+      if (sbError) {
+        console.error('Erro ao buscar credenciais:', sbError)
+        setError('Erro ao verificar credenciais')
+        setLoading(false)
+        return
+      }
+
+      if (data && username === data.username && password === data.password) {
+        onLogin()
+      } else {
+        setError('Usuário ou senha incorretos')
+      }
+    } catch (err) {
+      console.error(err)
+      setError('Erro de conexão')
     }
+
     setLoading(false)
   }
 

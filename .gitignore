@@ -11,3 +11,4 @@ façadeploy/
 fix-*.js
 dist.zip
 *.tmp
+supabase-schema.sql
